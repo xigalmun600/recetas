@@ -1,0 +1,26 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<h1>Página principal de ingredientes</h1>
+
+<form action="" method="get">
+    <label for="categoria"></label>
+    <select name="categoria" id="categoria">
+        <option value="">---</option>
+        {% for categoria in categorias %}
+            <option value="{{categoria.pk}}">{{categoria.nombre}}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Filtrar">
+</form>
+
+<ul>
+    {% for ingrediente in ingredientes %}
+    <li>{{ ingrediente }} </li>
+    {% empty %}
+    <li>No hay ingredientes aún.</li>
+    {% endfor%}
+</ul>
+
+{% endblock %}
