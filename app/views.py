@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import Ingrediente, CategoriaIngrediente
 from .forms import *
 from django.forms import formset_factory, modelformset_factory
@@ -66,4 +66,22 @@ def ingredientes_nuevo_model(request):
 def relaciones(request):
     recetas = Receta.objects.all()
     ingredientes = Ingrediente.objects.all()
+
     return render(request, 'app/relaciones.html', {'recetas':recetas, 'ingredientes':ingredientes})
+
+def recetas_lista(request):
+    recetas = Receta.objects.all()
+    return render(request, 'app/recetas_lista.html', {'recetas':recetas})
+
+def receta_detalle(request, pk):
+    receta = get_object_or_404(Receta, pk=pk)
+    ingredientes = Ingrediente.objects.all()
+    return render(request, 'app/receta_detalle.html', {'receta':receta, 'ingredientes':ingredientes})
+
+def receta_agregar_ingrediente(request, receta_pk, ingrediente_pk):
+    receta = get_object_or_404(Receta, pk=receta_pk)
+    ingrediente = get_object_or_404(Ingrediente, pk=ingrediente_pk)
+
+    receta.ingredientes.add(ingrediente)
+
+    return redirect('receta_detalle', pk=receta_pk)
