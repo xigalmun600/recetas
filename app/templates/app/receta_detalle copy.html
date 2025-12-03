@@ -1,27 +1,20 @@
 {% extends 'app/base.html' %}
-
 {% block content %}
-<h1>Receta: {{receta.nombre}} </h1>
-<ul>
-{% for ingrediente in receta.ingredientes.all %}
-    <li>{{ ingrediente }}</a> </li>
-
-{% endfor %}
+    <h1>Receta: {{ receta.nombre }}</h1>
+    <ul>
+        {% for ingrediente in receta.ingredientes.all %}
+            <li>
+            {{ ingrediente }}</a>
+        </li>
+    {% endfor %}
 </ul>
-
 <h1>Añadir ingredientes:</h1>
-
-
 <form action="" method="post">
     {% csrf_token %}
     {{ formset.management_form }}
-
     <ul>
-        {% for form in formset %}
-            <li>{{ form }} </li>
-        {% endfor %}
+        {% for form in formset %}<li>{{ form }}</li>{% endfor %}
     </ul>
-
     <button type="submit">Agregar ingrediente</button>
 </form>
 {% endblock %}
