@@ -8,47 +8,110 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CategoriaIngrediente',
+            name="CategoriaIngrediente",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='Ingrediente',
+            name="Ingrediente",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=50)),
-                ('refrigerado', models.BooleanField(default=False)),
-                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.categoriaingrediente')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=50)),
+                ("refrigerado", models.BooleanField(default=False)),
+                (
+                    "categoria",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="app.categoriaingrediente",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='IngredienteReceta',
+            name="IngredienteReceta",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('cantidad', models.FloatField()),
-                ('unidad_medida', models.CharField(choices=[('gr', 'Gramos'), ('kg', 'Kilogramos'), ('l', 'Litros'), ('ml', 'Mililitros'), ('u', 'Unidades')], default='u', max_length=2)),
-                ('ingrediente', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.ingrediente')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("cantidad", models.FloatField()),
+                (
+                    "unidad_medida",
+                    models.CharField(
+                        choices=[
+                            ("gr", "Gramos"),
+                            ("kg", "Kilogramos"),
+                            ("l", "Litros"),
+                            ("ml", "Mililitros"),
+                            ("u", "Unidades"),
+                        ],
+                        default="u",
+                        max_length=2,
+                    ),
+                ),
+                (
+                    "ingrediente",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="app.ingrediente",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Receta',
+            name="Receta",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=100)),
-                ('descripcion', models.TextField()),
-                ('ingredientes', models.ManyToManyField(through='app.IngredienteReceta', to='app.ingrediente')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=100)),
+                ("descripcion", models.TextField()),
+                (
+                    "ingredientes",
+                    models.ManyToManyField(
+                        through="app.IngredienteReceta", to="app.ingrediente"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='ingredientereceta',
-            name='receta',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.receta'),
+            model_name="ingredientereceta",
+            name="receta",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="app.receta"
+            ),
         ),
     ]
